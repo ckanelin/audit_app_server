@@ -10,13 +10,12 @@ class DocumentAI {
     this.projectId = process.env.PROJECT_ID;
     this.location = "us"; // Format is 'us' or 'eu'
     this.processorId = process.env.PROCESSOR_ID; // Create processor in Cloud Console
-    this.filePath = "./invoice.pdf";
 
     // Instantiates a client
     this.client = new DocumentProcessorServiceClient();
   }
 
-  async processDocument() {
+  async processDocument(filePath) {
     // The full resource name of the processor, e.g.:
     // projects/project-id/locations/location/processor/processor-id
     // You must create new processors in the Cloud Console first
@@ -24,7 +23,7 @@ class DocumentAI {
 
     // Read the file into memory.
     const fs = require("fs").promises;
-    const imageFile = await fs.readFile(this.filePath);
+    const imageFile = await fs.readFile(filePath);
 
     // Convert the image data to a Buffer and base64 encode it.
     const encodedImage = Buffer.from(imageFile).toString("base64");
