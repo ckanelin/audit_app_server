@@ -3,7 +3,7 @@ const handlePBCUpload = (req, res, db) => {
 	const pbcCollections = db.collection('pbc')
 
 	pbcCollections.remove();
-	pbcCollections.insertMany(text).then(results => {
+	pbcCollections.insertMany(text.data).then(results => {
 		res.send('success');
 	}).catch(error => {res.status(400).json('Cannot register user');})
 
@@ -12,7 +12,7 @@ const handlePBCUpload = (req, res, db) => {
 const handlePBCDownload = (req, res, db) => {
 	const text = req.body;
 	const pbcCollections = db.collection('pbc')
-
+	
 	pbcCollections.find().toArray()
 	.then(results => {
 	res.send(results);

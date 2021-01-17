@@ -1,13 +1,16 @@
 const MongoClient = require('mongodb').MongoClient;
-const bodyParser= require('body-parser');
+const cors = require('cors');
 
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = 3000;
 
 const pbc = require('./database/pbc');
+const pdf = require('./database/pdf');
 
 const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.mongodb.net/AuditApp?retryWrites=true&w=majority";
+
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -25,7 +28,9 @@ MongoClient.connect(connectionString, {
     const db = client.db('audit-app');
 
     app.use(express.json());
-    app.post('/pbcrequpload', (req,res) => { pbc.handlePBCReqUpload(req,res,db);});
+    app.post('/pbcupload', (req,res) => { pbc.handlePBCUpload(req,res,db);});
+    app.get('/pbcdownload', (req,res) => { pbc.handlePBCDownload(req,res,db);});
+    app.post('/pdfupload', (req, res) => { pdf.handlePDFUpload(req,res,db);})
 
   })
   .catch(error => console.error(error))
