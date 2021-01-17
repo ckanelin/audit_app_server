@@ -1,28 +1,42 @@
 const AnalyzePDFs = require("../model/AnalyzePDFs.js");
 
-const handlePDFUpload = (res,req, db) => {
+const handlePDFUpload = (req,res, db) => {
     const text = req.body;
-    const pdfCollections = db.collection('pdf');
-    console.log(text);
-    pdfCollections.insertMany(text).then(results => {
+	const pdfCollections = db.collection('pdf')
+   
+	pdfCollections.remove();
+	pdfCollections.insertMany(text).then(results => {
 		res.send('success');
-	}).catch(error => {
-        // res.status(400).json('Cannot upload pdf');
-        res.send('fail');
-    })
+	}).catch(error => {res.status(400).json('Cannot upload pdfs');})
 }
 
-const handlePDFDownload = (res,req,db) => {
+async function handlePDFDownload (req,res,db) {
     const text = req.body;
     const pdfCollections = db.collection('pdf');
 
     pdfCollections.find().toArray()
 	.then(results => {
-        console.log(results.length);
+        const analyzePDFs = new AnalyzePDFs();
+        const arrayLength = results.length;
+        const sampleUploadMap = new Map();
+
+        for(i=0; i < arrayLength; i++){
+            sampleUploadMap.set(results[i].id,results[i].name);
+        }
+
+        analyzePDFs
+        .analyze(sampleUploadMap, ["Total", "Tax"])
+        .then((value) => {
+            return value;
+        }).then((data)=> {
+            console.log(data);
+            res.send(JSON.stringify(data));
+        })
     })
 	.catch(error => console.error(error));
 }
 
 module.exports = {
-    handlePDFUpload: handlePDFUpload
+    handlePDFUpload: handlePDFUpload,
+    handlePDFDownload: handlePDFDownload
 }
