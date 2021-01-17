@@ -1,6 +1,7 @@
+require('dotenv').config()
 const MongoClient = require('mongodb').MongoClient;
-const cors = require('cors');
 
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -8,7 +9,7 @@ const port = 3000;
 const pbc = require('./database/pbc');
 const pdf = require('./database/pdf');
 
-const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.mongodb.net/AuditApp?retryWrites=true&w=majority";
+const connectionString = process.env.CONNECTION_STRING;
 
 app.use(cors())
 
