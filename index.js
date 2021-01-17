@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
   .catch(error => {
     console.error(error);
   })
+  res.send('Hello world');
 });
 
 app.listen(process.env.PORT||8080, () => {
