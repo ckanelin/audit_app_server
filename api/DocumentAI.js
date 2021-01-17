@@ -1,5 +1,4 @@
-// require("dotenv-flow").config({ silent: true });
-require("dotenv-flow").config();
+require("dotenv-flow").config({ silent: true });
 const {
   DocumentProcessorServiceClient,
 } = require("@google-cloud/documentai").v1beta3;
@@ -22,7 +21,7 @@ class DocumentAI {
     const name = `projects/${this.projectId}/locations/${this.location}/processors/${this.processorId}`;
 
     // Read the file into memory.
-    const fs = require("fs").promises;
+    // const fs = require("fs").promises;
     const imageFile = await fs.readFile(filePath);
 
     // Convert the image data to a Buffer and base64 encode it.
@@ -70,16 +69,22 @@ class DocumentAI {
     // Form parsing provides additional output about
     // form-formatted PDFs. You  must create a form
     // processor in the Cloud Console to see full field details.
-    console.log("\nThe following form key/value pairs were detected:");
+    // console.log("\nThe following form key/value pairs were detected:");
 
     const { formFields } = page1;
+    const extractedPairs = new Map();
     for (const field of formFields) {
-      const fieldName = getText(field.fieldName.textAnchor);
-      const fieldValue = getText(field.fieldValue.textAnchor);
+      const fieldName = getText(field.fieldName.textAnchor).trim();
+      const fieldValue = getText(field.fieldValue.textAnchor).trim();
 
-      console.log("Extracted key value pair:");
-      console.log(`\t(${fieldName}, ${fieldValue})`);
+      // console.log("Extracted key value pair:");
+      // console.log(`\t(${fieldName}, ${fieldValue})`);
+
+      extractedPairs.set(fieldName, fieldValue);
     }
+    // console.log(extractedPairs);
+    //Returns a Map (key value pairs) extracted from the document
+    return extractedPairs;
   }
 }
 
