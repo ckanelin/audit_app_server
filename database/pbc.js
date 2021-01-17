@@ -15,7 +15,7 @@ const handlePBCDownload = (req, res, db) => {
 	
 	pbcCollections.find().toArray()
 	.then(results => {
-	res.send(results);
+	 	res.send(results);
 	})
 	.catch(error => console.error(error));
 }
