@@ -9,7 +9,7 @@ const port = 3000;
 const pbc = require('./database/pbc');
 const pdf = require('./database/pdf');
 
-const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.mongodb.net/AuditApp?retryWrites=true&w=majority;
+const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.mongodb.net/AuditApp?retryWrites=true&w=majority";
 
 app.use(cors())
 
@@ -21,12 +21,11 @@ app.listen(process.env.PORT||8080, () => {
   console.log(`App is running`);
 });
 
-
 MongoClient.connect(connectionString, { 
     useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database');
-    const db = client.db('audit-app');
+    const db = client.db('audit-app');s
 
     app.use(express.json());
     app.post('/pbcupload', (req,res) => { pbc.handlePBCUpload(req,res,db);});
