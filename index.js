@@ -14,14 +14,7 @@ const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.m
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(process.env.PORT||8080, () => {
-  console.log(`App is running`);
-});
-
-MongoClient.connect(connectionString, { 
+  MongoClient.connect(connectionString, { 
     useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database');
@@ -36,5 +29,11 @@ MongoClient.connect(connectionString, {
   .catch(error => {
     console.error(error);
   })
+});
+
+app.listen(process.env.PORT||8080, () => {
+  console.log(`App is running`);
+});
+
 
 
