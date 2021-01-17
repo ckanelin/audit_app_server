@@ -24,7 +24,7 @@ MongoClient.connect(connectionString, {
   useUnifiedTopology: true })
 .then(client => {
   console.log('Connected to Database');
-  const db = client.db('audit-app');s
+  const db = client.db('audit-app');
 
   app.use(express.json());
   app.post('/pbcupload', (req,res) => { pbc.handlePBCUpload(req,res,db);});
