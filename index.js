@@ -33,6 +33,8 @@ MongoClient.connect(connectionString, {
     app.post('/pdfupload', (req, res) => { pdf.handlePDFUpload(req,res,db);})
 
   })
-  .catch(error => console.error(error))
+  .catch(error => {
+    console.error(error);
+  })
 
 
