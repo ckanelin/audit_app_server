@@ -9,8 +9,7 @@ const port = 3000;
 const pbc = require('./database/pbc');
 const pdf = require('./database/pdf');
 
-const connectionString = "mongodb+srv://cklin:vMDf8oZ4quWAficj@naivebaes.fgmo4.mongodb.net/AuditApp?retryWrites=true&w=majority";
-
+const connectionString = process.env.CONNECTION_STRING;
 app.use(cors())
 
 app.get('/', (req, res) => {
