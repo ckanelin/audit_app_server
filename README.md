@@ -2,7 +2,7 @@
 
 This is the back-end application for a hackathon project with a team of 4 people.
 
-##Inspiration
+## Inspiration
 Two former accountants were on the team, one with a public accounting background (auditor), and the other with industry experience.
 On both sides, the accountants voiced frustrations around the meticulous yet mundane task of providing and matching audit support (invoices, receipts, etc) to financial records
 The public accounting services sector is a $13 billion dollar industry, of which a large portion of services provided include financial statement audits for all publicly traded companies and many private companies as well.
